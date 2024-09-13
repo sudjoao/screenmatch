@@ -1,8 +1,8 @@
 package com.sudjoao.screenmatch.services;
 
-import com.sudjoao.screenmatch.models.SeriesDataOmdbInput;
-import com.sudjoao.screenmatch.models.SeriesEpisodeDataOmdbInput;
-import com.sudjoao.screenmatch.models.SeriesSeasonDataOmdbInput;
+import com.sudjoao.screenmatch.models.dto.SeriesDataOmdbInput;
+import com.sudjoao.screenmatch.models.dto.SeriesEpisodeDataOmdbInput;
+import com.sudjoao.screenmatch.models.dto.SeriesSeasonDataOmdbInput;
 
 import java.util.Map;
 
@@ -19,7 +19,6 @@ public class OmdbApiService extends ApiService {
         Map<String, String> params = Map.of("t", name);
         return getSeries(params, SeriesDataOmdbInput.class);
     }
-
 
 
     public static SeriesSeasonDataOmdbInput getSeasonInfo(String name, String season) {

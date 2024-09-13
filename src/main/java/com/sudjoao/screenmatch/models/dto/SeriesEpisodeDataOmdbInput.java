@@ -1,4 +1,4 @@
-package com.sudjoao.screenmatch.models;
+package com.sudjoao.screenmatch.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
