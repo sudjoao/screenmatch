@@ -9,8 +9,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @SpringBootApplication
 public class ScreenmatchApplication implements CommandLineRunner {
@@ -31,6 +34,13 @@ public class ScreenmatchApplication implements CommandLineRunner {
 			SeriesSeasonDataOmdbInput seasonDataOmdbInput = OmdbApiService.getSeasonInfo(name, String.valueOf(i));
 			seasons.add(seasonDataOmdbInput);
 		}
-		seasons.forEach(season -> season.episodes().forEach(episode -> System.out.println(episode.title())));
+
+		List<SeriesEpisodeDataOmdbInput> topRatedEpisodes = seasons.stream()
+				.flatMap(s -> s.episodes().stream())
+				.filter(s-> !s.rating().equals("N/A"))
+				.sorted(Comparator.comparing((SeriesEpisodeDataOmdbInput::rating)).reversed())
+				.limit(5)
+				.toList();
+		topRatedEpisodes.forEach(System.out::println);
 	}
 }
