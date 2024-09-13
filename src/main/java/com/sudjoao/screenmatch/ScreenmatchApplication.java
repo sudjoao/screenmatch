@@ -31,6 +31,6 @@ public class ScreenmatchApplication implements CommandLineRunner {
 			SeriesSeasonDataOmdbInput seasonDataOmdbInput = OmdbApiService.getSeasonInfo(name, String.valueOf(i));
 			seasons.add(seasonDataOmdbInput);
 		}
-		seasons.forEach(System.out::println);
+		seasons.forEach(season -> season.episodes().forEach(episode -> System.out.println(episode.title())));
 	}
 }
