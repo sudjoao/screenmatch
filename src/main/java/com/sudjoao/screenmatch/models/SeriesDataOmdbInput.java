@@ -3,9 +3,9 @@ package com.sudjoao.screenmatch.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record SerieDataOMBDDTO(
+public record SeriesDataOmdbInput(
         String Title,
         String Year,
-        String totalSeasons
+        Integer totalSeasons
 ) {
 }
