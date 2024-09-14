@@ -1,5 +1,6 @@
 package com.sudjoao.screenmatch.models.domain;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class Series {
@@ -26,5 +27,17 @@ public class Series {
 
     public List<Season> getSeasons() {
         return seasons;
+    }
+
+    public List<Episode> getAllEpisodes() {
+        return seasons.stream()
+                .flatMap(s -> s.getEpisodes().stream())
+                .toList();
+    }
+
+    public List<Episode> getEpisodesAfterDate(LocalDate date) {
+        return  getAllEpisodes().stream()
+                .filter(e -> e.getReleaseDate() != null && e.getReleaseDate().isAfter(date))
+                .toList();
     }
 }

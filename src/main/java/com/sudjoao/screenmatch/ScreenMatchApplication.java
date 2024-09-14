@@ -1,6 +1,8 @@
 package com.sudjoao.screenmatch;
 
 import com.sudjoao.screenmatch.models.domain.Episode;
+import com.sudjoao.screenmatch.models.domain.Season;
+import com.sudjoao.screenmatch.models.domain.Series;
 import com.sudjoao.screenmatch.models.dto.SeriesDataOmdbInput;
 import com.sudjoao.screenmatch.models.dto.SeriesEpisodeDataOmdbInput;
 import com.sudjoao.screenmatch.models.dto.SeriesSeasonDataOmdbInput;
@@ -36,21 +38,17 @@ public class ScreenMatchApplication implements CommandLineRunner {
             seasons.add(seasonDataOmdbInput);
         }
 
-        List<Episode> episodes = seasons.stream()
-                .flatMap(s -> s.episodes().stream()
-                        .map(e -> new Episode(
-                                e.title(), e.episode(), e.rating(),
-                                e.releaseDate(), Integer.valueOf(s.seasonNumber()
-                        )
-                        )))
+        Series series = seriesDataOmdbInput.toDomain();
+        List<Season> seasonList = seasons.stream()
+                .map(SeriesSeasonDataOmdbInput::toDomain)
                 .toList();
-        episodes.forEach(System.out::println);
+        series.setSeasons(seasonList);
+
+        series.getAllEpisodes().forEach(System.out::println);
 
         System.out.println("Type the date that you want to filter");
         var year = scanner.nextInt();
         LocalDate localDate = LocalDate.of(year, 1, 1);
-        episodes.stream()
-                .filter(e -> e.getReleaseDate() != null && e.getReleaseDate().isAfter(localDate))
-                .forEach(System.out::println);
+        series.getEpisodesAfterDate(localDate).forEach(System.out::println);
     }
 }
