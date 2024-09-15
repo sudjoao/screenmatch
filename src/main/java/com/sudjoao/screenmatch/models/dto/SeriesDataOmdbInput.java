@@ -1,7 +1,6 @@
 package com.sudjoao.screenmatch.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sudjoao.screenmatch.models.domain.Season;
 import com.sudjoao.screenmatch.models.domain.Series;
 
 @JsonIgnoreProperties(ignoreUnknown = true)

@@ -2,11 +2,9 @@ package com.sudjoao.screenmatch.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sudjoao.screenmatch.models.domain.Episode;
 import com.sudjoao.screenmatch.models.domain.Season;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record SeriesSeasonDataOmdbInput(

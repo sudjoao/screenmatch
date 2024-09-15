@@ -3,19 +3,25 @@ package com.sudjoao.screenmatch.models.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Episode {
      private final String title;
      private final Integer number;
      private final String rating;
-     private final LocalDate releaseDate;
+     private LocalDate releaseDate;
      private final Integer season;
 
     public Episode(String title, Integer number, String rating, String releaseDate, Integer season) {
         this.title = title;
         this.number = number;
         this.rating = rating;
-        this.releaseDate = LocalDate.parse(releaseDate);
+        try{
+            this.releaseDate = LocalDate.parse(releaseDate);
+        } catch(DateTimeParseException exception) {
+            this.releaseDate = null;
+        }
+
         this.season = season;
     }
 
