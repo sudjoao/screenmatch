@@ -7,10 +7,14 @@ public class Series {
     private final String name;
     private final int totalSeasons;
     private List<Season> seasons;
+    private final List<String> actors;
+    private final String gender;
 
-    public Series(String name, int totalSeasons) {
+    public Series(String name, int totalSeasons, List<String> actors, String gender) {
         this.name = name;
         this.totalSeasons = totalSeasons;
+        this.actors = actors;
+        this.gender = gender;
     }
 
     public void setSeasons(List<Season> seasons) {
@@ -39,5 +43,11 @@ public class Series {
         return  getAllEpisodes().stream()
                 .filter(e -> e.getReleaseDate() != null && e.getReleaseDate().isAfter(date))
                 .toList();
+    }
+
+    @Override
+    public String toString() {
+        return "Series: %s %d seasons (%s). Actors: %s\n".formatted(name, totalSeasons, gender, actors) +
+                getAllEpisodes();
     }
 }

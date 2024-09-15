@@ -28,6 +28,6 @@ public class ScreenMatchApplication implements CommandLineRunner {
         System.out.println("Type the series name");
         String name = scanner.nextLine();
         Series series = SeriesFacade.getSeriesData(name);
-        series.getAllEpisodes().forEach(System.out::println);
+        System.out.println(series);
     }
 }
