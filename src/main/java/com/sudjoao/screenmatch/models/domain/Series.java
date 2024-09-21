@@ -13,12 +13,15 @@ public class Series {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private final String name;
-    private final int totalEpisodes;
-    @OneToMany(mappedBy = "series", cascade = CascadeType.ALL)
+    private String name;
+    private int totalEpisodes;
+    @OneToMany(mappedBy = "series", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Episode> episodes;
-    private final List<String> actors;
-    private final String gender;
+    private List<String> actors;
+    private String gender;
+
+    public Series() {
+    }
 
     public Series(String name, int totalEpisodes, List<String> actors, String gender) {
         this.name = name;

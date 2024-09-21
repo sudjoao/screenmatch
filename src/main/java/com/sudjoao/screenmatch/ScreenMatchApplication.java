@@ -26,6 +26,6 @@ public class ScreenMatchApplication implements CommandLineRunner {
         String name = scanner.nextLine();
         Series series = SeriesFacade.getSeriesData(name);
         seriesRepository.save(series);
-        System.out.println(series);
+        seriesRepository.findAll().forEach(System.out::println);
     }
 }
