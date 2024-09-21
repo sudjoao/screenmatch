@@ -1,20 +1,13 @@
 package com.sudjoao.screenmatch;
 
-import com.sudjoao.screenmatch.models.domain.Season;
 import com.sudjoao.screenmatch.models.domain.Series;
-import com.sudjoao.screenmatch.models.dto.SeriesDataOmdbInput;
-import com.sudjoao.screenmatch.models.dto.SeriesSeasonDataOmdbInput;
 import com.sudjoao.screenmatch.repository.SeriesRepository;
-import com.sudjoao.screenmatch.services.OmdbApiService;
 import com.sudjoao.screenmatch.services.SeriesFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 @SpringBootApplication

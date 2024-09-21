@@ -11,22 +11,25 @@ public class Episode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-     private final String title;
-     private final Integer number;
-     private final String rating;
-     private LocalDate releaseDate;
-     private final Integer seasonNumber;
+    private String title;
+    private Integer number;
+    private String rating;
+    private LocalDate releaseDate;
+    private Integer seasonNumber;
 
-     @ManyToOne
-     private Season season;
+    @ManyToOne
+    private Series series;
+
+    public Episode() {
+    }
 
     public Episode(String title, Integer number, String rating, String releaseDate, Integer seasonNumber) {
         this.title = title;
         this.number = number;
         this.rating = rating;
-        try{
+        try {
             this.releaseDate = LocalDate.parse(releaseDate);
-        } catch(DateTimeParseException exception) {
+        } catch (DateTimeParseException exception) {
             this.releaseDate = null;
         }
 
@@ -48,6 +51,10 @@ public class Episode {
 
     public String getRating() {
         return rating;
+    }
+
+    public void setSeries(Series series) {
+        this.series = series;
     }
 
     public LocalDate getReleaseDate() {

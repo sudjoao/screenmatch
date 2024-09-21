@@ -1,11 +1,10 @@
 package com.sudjoao.screenmatch.services;
 
-import com.sudjoao.screenmatch.models.domain.Season;
+import com.sudjoao.screenmatch.models.domain.Episode;
 import com.sudjoao.screenmatch.models.domain.Series;
 import com.sudjoao.screenmatch.models.dto.SeriesDataOmdbInput;
 import com.sudjoao.screenmatch.models.dto.SeriesSeasonDataOmdbInput;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +18,11 @@ public class SeriesFacade {
         }
 
         Series series = seriesDataOmdbInput.toDomain();
-        List<Season> seasonList = seasons.stream()
-                .map(SeriesSeasonDataOmdbInput::toDomain)
+        List<Episode> seasonList = seasons.stream()
+                .flatMap(s -> s.episodes().stream().map(e -> e.toDomain(Integer.parseInt(s.seasonNumber()))))
                 .toList();
+        series.setEpisodes(seasonList);
 
-        return  series;
+        return series;
     }
 }

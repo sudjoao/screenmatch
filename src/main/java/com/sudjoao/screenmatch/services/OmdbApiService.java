@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class OmdbApiService extends ApiService {
     private static final String URL = "https://www.omdbapi.com";
-    private static final String API_KEY = "";
+    private static final String API_KEY = System.getenv("OMDB_API_KEY");
 
     public static <T> T getSeries(Map<String, String> params, Class<T> className) {
         String seriesData = get(baseUrl() + '&' + MapperService.mapToQueryParams(params));
