@@ -1,18 +1,26 @@
 package com.sudjoao.screenmatch.models.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+@Entity
 public class Episode {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
      private final String title;
      private final Integer number;
      private final String rating;
      private LocalDate releaseDate;
-     private final Integer season;
+     private final Integer seasonNumber;
 
-    public Episode(String title, Integer number, String rating, String releaseDate, Integer season) {
+     @ManyToOne
+     private Season season;
+
+    public Episode(String title, Integer number, String rating, String releaseDate, Integer seasonNumber) {
         this.title = title;
         this.number = number;
         this.rating = rating;
@@ -22,12 +30,12 @@ public class Episode {
             this.releaseDate = null;
         }
 
-        this.season = season;
+        this.seasonNumber = seasonNumber;
     }
 
     @Override
     public String toString() {
-        return "Episode S%d-%d - %s (%s)".formatted(season, number, title, releaseDate);
+        return "Episode S%d-%d - %s (%s)".formatted(seasonNumber, number, title, releaseDate);
     }
 
     public String getTitle() {
@@ -46,7 +54,7 @@ public class Episode {
         return releaseDate;
     }
 
-    public Integer getSeason() {
-        return season;
+    public Integer getSeasonNumber() {
+        return seasonNumber;
     }
 }

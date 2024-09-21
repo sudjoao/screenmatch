@@ -22,7 +22,6 @@ public class SeriesFacade {
         List<Season> seasonList = seasons.stream()
                 .map(SeriesSeasonDataOmdbInput::toDomain)
                 .toList();
-        series.setSeasons(seasonList);
 
         return  series;
     }

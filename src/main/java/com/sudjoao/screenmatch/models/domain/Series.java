@@ -1,11 +1,21 @@
 package com.sudjoao.screenmatch.models.domain;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Series {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private final String name;
     private final int totalSeasons;
+    @OneToMany
     private List<Season> seasons;
     private final List<String> actors;
     private final String gender;
@@ -15,6 +25,7 @@ public class Series {
         this.totalSeasons = totalSeasons;
         this.actors = actors;
         this.gender = gender;
+        this.seasons = new ArrayList<>();
     }
 
     public void setSeasons(List<Season> seasons) {
@@ -27,6 +38,14 @@ public class Series {
 
     public int getTotalSeasons() {
         return totalSeasons;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public List<Season> getSeasons() {
