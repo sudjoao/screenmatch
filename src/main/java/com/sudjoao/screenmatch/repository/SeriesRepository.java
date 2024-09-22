@@ -13,4 +13,6 @@ public interface SeriesRepository extends JpaRepository<Series, Long> {
     List<Series> findTop5ByOrderByRateDesc();
 
     List<Series> findByGender(GenderEnum genderEnum);
+
+    List<Series> findByTotalSeasonsAndRateGreaterThanEqual(int totalSeasons, double rate);
 }

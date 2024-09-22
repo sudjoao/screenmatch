@@ -37,6 +37,9 @@ public class MenuService {
                 case 3:
                     handleSearchByGender();
                     break;
+                case 4:
+                    handleSearchBySeasonAndRating();
+                    break;
                 default:
                     System.out.println("Invalid option. Restarting menu...");
             }
@@ -49,6 +52,7 @@ public class MenuService {
         System.out.println("1. Search a series");
         System.out.println("2. Check the top 5 series");
         System.out.println("3. Find series by gender");
+        System.out.println("4. Find series by season number and rating");
         System.out.println("0. Leave");
     }
 
@@ -80,6 +84,15 @@ public class MenuService {
         String gender = scanner.nextLine();
         List<Series> series = seriesRepository.findByGender(GenderEnum.getByName(gender));
         System.out.println("Founded series:");
+        series.forEach(System.out::println);
+    }
+
+    private void handleSearchBySeasonAndRating() {
+        System.out.println("Type the quantity of the seasons");
+        int seasonNumber = scanner.nextInt();
+        System.out.println("Type the minimum rate");
+        double minRate = scanner.nextDouble();
+        List<Series> series = seriesRepository.findByTotalSeasonsAndRateGreaterThanEqual(seasonNumber, minRate);
         series.forEach(System.out::println);
     }
 }
