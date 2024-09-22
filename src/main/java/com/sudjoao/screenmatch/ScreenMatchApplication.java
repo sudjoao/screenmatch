@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 @SpringBootApplication
@@ -22,10 +23,16 @@ public class ScreenMatchApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Type the series name");
+        System.out.println("Which series are you looking for?");
         String name = scanner.nextLine();
-        Series series = SeriesFacade.getSeriesData(name);
-        seriesRepository.save(series);
-        seriesRepository.findAll().forEach(System.out::println);
+        Optional<Series> foundedSeries = seriesRepository.findByNameContainingIgnoreCase(name);
+        if (foundedSeries.isEmpty()) {
+            System.out.println("We dont have this series in our database, I'll look for it, just a second...");
+            Series series = SeriesFacade.getSeriesData(name);
+            seriesRepository.save(series);
+            System.out.println("Database update");
+            foundedSeries = Optional.of(series);
+        }
+        System.out.printf("Series founded: %s\n", foundedSeries.get());
     }
 }
