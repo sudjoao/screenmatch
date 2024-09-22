@@ -1,7 +1,9 @@
 package com.sudjoao.screenmatch.services;
 
+import com.sudjoao.screenmatch.models.domain.Episode;
 import com.sudjoao.screenmatch.models.domain.GenderEnum;
 import com.sudjoao.screenmatch.models.domain.Series;
+import com.sudjoao.screenmatch.repository.EpisodesRepository;
 import com.sudjoao.screenmatch.repository.SeriesRepository;
 
 import java.util.Arrays;
@@ -12,9 +14,11 @@ import java.util.Scanner;
 public class MenuService {
     private Scanner scanner = new Scanner(System.in);
     private final SeriesRepository seriesRepository;
+    private final EpisodesRepository episodesRepository;
 
-    public MenuService(SeriesRepository seriesRepository) {
+    public MenuService(SeriesRepository seriesRepository, EpisodesRepository episodesRepository) {
         this.seriesRepository = seriesRepository;
+        this.episodesRepository = episodesRepository;
     }
 
     public void runMenu() {
@@ -40,6 +44,12 @@ public class MenuService {
                 case 4:
                     handleSearchBySeasonAndRating();
                     break;
+                case 5:
+                    handleSelectEpisodesByName();
+                    break;
+                case 6:
+                    getTopFiveBySeries();
+                    break;
                 default:
                     System.out.println("Invalid option. Restarting menu...");
             }
@@ -53,6 +63,8 @@ public class MenuService {
         System.out.println("2. Check the top 5 series");
         System.out.println("3. Find series by gender");
         System.out.println("4. Find series by season number and rating");
+        System.out.println("5. Find episodes by title");
+        System.out.println("6. Find top 5 episodes from a series");
         System.out.println("0. Leave");
     }
 
@@ -61,7 +73,7 @@ public class MenuService {
         topFiveSeries.forEach(s -> System.out.println(s.information()));
     }
 
-    private void handleSeriesSearch() {
+    private Series handleSeriesSearch() {
         System.out.println("Which series are you looking for?");
         String name = scanner.nextLine();
         Optional<Series> foundedSeries = seriesRepository.findByNameContainingIgnoreCase(name);
@@ -73,7 +85,7 @@ public class MenuService {
             foundedSeries = Optional.of(series);
         }
         System.out.printf("Series founded: %s\n", foundedSeries.get());
-
+        return  foundedSeries.get();
     }
 
 
@@ -92,7 +104,21 @@ public class MenuService {
         int seasonNumber = scanner.nextInt();
         System.out.println("Type the minimum rate");
         double minRate = scanner.nextDouble();
-        List<Series> series = seriesRepository.findByTotalSeasonsAndRateGreaterThanEqual(seasonNumber, minRate);
+        List<Series> series = seriesRepository.findBySeasonWithRate(seasonNumber, minRate);
         series.forEach(System.out::println);
+    }
+
+    public void handleSelectEpisodesByName() {
+        System.out.println("Type a part of the episode name");
+        var title = scanner.nextLine();
+
+        List<Episode> episodes = episodesRepository.getEpisodesByName(title);
+        episodes.forEach(System.out::println);
+    }
+
+    public void getTopFiveBySeries() {
+        Series series = handleSeriesSearch();
+        var episodes = seriesRepository.topFiveBySeries(series);
+        episodes.forEach(e -> System.out.println(e + "-" + e.getRating()));
     }
 }
