@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 public class Series {
@@ -18,16 +19,16 @@ public class Series {
     @OneToMany(mappedBy = "series", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Episode> episodes;
     private List<String> actors;
-    private String gender;
+    private GenderEnum gender;
 
     public Series() {
     }
 
-    public Series(String name, int totalEpisodes, List<String> actors, String gender) {
+    public Series(String name, int totalEpisodes, List<String> actors, Optional<String> gender) {
         this.name = name;
         this.totalEpisodes = totalEpisodes;
         this.actors = actors;
-        this.gender = gender;
+        this.gender = gender.map(s -> GenderEnum.getByName(s.trim().split(",")[0])).orElse(GenderEnum.UNKNOWN);
         this.episodes = new ArrayList<>();
     }
 

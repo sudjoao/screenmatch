@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sudjoao.screenmatch.models.domain.Series;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Optional;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record SeriesDataOmdbInput(
@@ -15,6 +15,6 @@ public record SeriesDataOmdbInput(
         String Gender
 ) {
     public Series toDomain() {
-        return new Series(Title(), totalSeasons(), Arrays.stream(Actors().strip().split(",")).toList(), Gender());
+        return new Series(Title(), totalSeasons(), Arrays.stream(Actors().strip().split(",")).toList(), Optional.ofNullable(Gender()));
     }
 }
