@@ -15,7 +15,7 @@ public enum GenderEnum {
 
     public static GenderEnum getByName(String name) {
         for (GenderEnum genderEnum : GenderEnum.values()) {
-            if (genderEnum.name().equals(name))
+            if (genderEnum.name().equalsIgnoreCase(name))
                 return genderEnum;
         }
         throw new RuntimeException("Gender not found");

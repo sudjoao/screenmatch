@@ -15,18 +15,19 @@ public class Series {
     private Long id;
 
     private String name;
-    private int totalEpisodes;
+    private int totalSeasons;
     @OneToMany(mappedBy = "series", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Episode> episodes;
     private List<String> actors;
     private GenderEnum gender;
+    private Double rate;
 
     public Series() {
     }
 
-    public Series(String name, int totalEpisodes, List<String> actors, Optional<String> gender) {
+    public Series(String name, int totalSeasons, List<String> actors, Optional<String> gender) {
         this.name = name;
-        this.totalEpisodes = totalEpisodes;
+        this.totalSeasons = totalSeasons;
         this.actors = actors;
         this.gender = gender.map(s -> GenderEnum.getByName(s.trim().split(",")[0])).orElse(GenderEnum.UNKNOWN);
         this.episodes = new ArrayList<>();
@@ -35,14 +36,15 @@ public class Series {
     public void setEpisodes(List<Episode> episodes) {
         episodes.forEach(e -> e.setSeries(this));
         this.episodes = episodes;
+        this.rate = this.episodes.stream().mapToDouble(Episode::getRating).average().orElse(0);
     }
 
     public String getName() {
         return name;
     }
 
-    public int getTotalEpisodes() {
-        return totalEpisodes;
+    public int getTotalSeasons() {
+        return totalSeasons;
     }
 
     public Long getId() {
@@ -63,9 +65,12 @@ public class Series {
                 .toList();
     }
 
+    public String information() {
+        return "Series: %s, it contains %d episodes in %d seasons (%s). Rate: %.2f. Actors: %s\n".formatted(name, episodes.size(), totalSeasons, gender, rate, actors);
+    }
+
     @Override
     public String toString() {
-        return "Series: %s %d episodes (%s). Actors: %s\n".formatted(name, totalEpisodes, gender, actors) +
-                episodes;
+        return information() + episodes;
     }
 }

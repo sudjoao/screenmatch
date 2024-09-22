@@ -13,7 +13,7 @@ public class Episode {
 
     private String title;
     private Integer number;
-    private String rating;
+    private Double rating;
     private LocalDate releaseDate;
     private Integer seasonNumber;
 
@@ -26,7 +26,12 @@ public class Episode {
     public Episode(String title, Integer number, String rating, String releaseDate, Integer seasonNumber) {
         this.title = title;
         this.number = number;
-        this.rating = rating;
+        try {
+
+            this.rating = Double.parseDouble(rating);
+        } catch (NumberFormatException e) {
+            this.rating = 0.0;
+        }
         try {
             this.releaseDate = LocalDate.parse(releaseDate);
         } catch (DateTimeParseException exception) {
@@ -49,7 +54,7 @@ public class Episode {
         return number;
     }
 
-    public String getRating() {
+    public Double getRating() {
         return rating;
     }
 
