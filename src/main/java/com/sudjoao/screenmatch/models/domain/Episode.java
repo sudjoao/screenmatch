@@ -43,7 +43,7 @@ public class Episode {
 
     @Override
     public String toString() {
-        return "Episode S%d-%d - %s (%s)".formatted(seasonNumber, number, title, releaseDate);
+        return "%s - Episode S%d-%d - %s (%s)".formatted(series.getName(),seasonNumber, number, title, releaseDate);
     }
 
     public String getTitle() {

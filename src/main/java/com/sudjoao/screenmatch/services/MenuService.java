@@ -50,6 +50,9 @@ public class MenuService {
                 case 6:
                     getTopFiveBySeries();
                     break;
+                case 7:
+                    getSeriesEpisodeAfterYear();
+                    break;
                 default:
                     System.out.println("Invalid option. Restarting menu...");
             }
@@ -65,6 +68,7 @@ public class MenuService {
         System.out.println("4. Find series by season number and rating");
         System.out.println("5. Find episodes by title");
         System.out.println("6. Find top 5 episodes from a series");
+        System.out.println("7. Find series episodes after a specific year");
         System.out.println("0. Leave");
     }
 
@@ -120,5 +124,13 @@ public class MenuService {
         Series series = handleSeriesSearch();
         var episodes = seriesRepository.topFiveBySeries(series);
         episodes.forEach(e -> System.out.println(e + "-" + e.getRating()));
+    }
+
+    public void getSeriesEpisodeAfterYear(){
+        Series series = handleSeriesSearch();
+        System.out.println("Type the minimum episodes years");
+        var year = scanner.nextInt();
+        var episodes = seriesRepository.seriesEpisodesAfterYear(series, year);
+        episodes.forEach(System.out::println);
     }
 }
