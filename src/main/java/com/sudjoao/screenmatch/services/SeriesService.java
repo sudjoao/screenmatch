@@ -31,4 +31,9 @@ public class SeriesService {
     public List<SeriesDto> getTopFiveSeriesWithRecentEpisodes() {
         return convertSeriesToDomain(seriesRepository.findTopFiveSeriesWithRecentEpisodes());
     }
+
+    public SeriesDto getById(Long id) {
+        var series = seriesRepository.findById(id);
+        return series.map(SeriesDto::fromDomain).orElse(null);
+    }
 }

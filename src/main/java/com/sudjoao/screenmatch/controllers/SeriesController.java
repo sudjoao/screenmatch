@@ -4,6 +4,7 @@ import com.sudjoao.screenmatch.models.dto.SeriesDto;
 import com.sudjoao.screenmatch.services.SeriesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,5 +29,10 @@ public class SeriesController {
     @GetMapping("/top-five-recent-episodes")
     List<SeriesDto> getTopFiveSeriesWithRecentEpisodes() {
         return seriesService.getTopFiveSeriesWithRecentEpisodes();
+    }
+
+    @GetMapping("/{id}")
+    SeriesDto getSeriesById(@PathVariable Long id) {
+        return seriesService.getById(id);
     }
 }
