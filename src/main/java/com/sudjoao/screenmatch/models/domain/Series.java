@@ -65,6 +65,18 @@ public class Series {
                 .toList();
     }
 
+    public List<String> getActors() {
+        return actors;
+    }
+
+    public GenderEnum getGender() {
+        return gender;
+    }
+
+    public Double getRate() {
+        return rate;
+    }
+
     public String information() {
         return "Series: %s, it contains %d episodes in %d seasons (%s). Rate: %.2f. Actors: %s\n".formatted(name, episodes.size(), totalSeasons, gender, rate, actors);
     }
