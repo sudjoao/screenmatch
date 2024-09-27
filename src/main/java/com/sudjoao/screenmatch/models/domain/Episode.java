@@ -11,6 +11,14 @@ public class Episode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    public Long getId() {
+        return id;
+    }
+
+    public Series getSeries() {
+        return series;
+    }
+
     private String title;
     private Integer number;
     private Double rating;
@@ -43,7 +51,7 @@ public class Episode {
 
     @Override
     public String toString() {
-        return "%s - Episode S%d-%d - %s (%s)".formatted(series.getName(),seasonNumber, number, title, releaseDate);
+        return "%s - Episode S%d-%d - %s (%s)".formatted(series.getName(), seasonNumber, number, title, releaseDate);
     }
 
     public String getTitle() {

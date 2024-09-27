@@ -1,5 +1,6 @@
 package com.sudjoao.screenmatch.controllers;
 
+import com.sudjoao.screenmatch.models.dto.EpisodeDto;
 import com.sudjoao.screenmatch.models.dto.SeriesDto;
 import com.sudjoao.screenmatch.services.SeriesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,15 @@ public class SeriesController {
     @GetMapping("/{id}")
     SeriesDto getSeriesById(@PathVariable Long id) {
         return seriesService.getById(id);
+    }
+
+    @GetMapping("/{id}/episodes")
+    List<EpisodeDto> getSeriesEpisodes(@PathVariable Long id) {
+        return seriesService.getEpisodes(id);
+    }
+
+    @GetMapping("/{id}/episodes/season/{seasonId}")
+    List<EpisodeDto> getSeriesEpisodes(@PathVariable Long id, @PathVariable int seasonId) {
+        return seriesService.getSeriesEpisodeFromSeason(id, seasonId);
     }
 }
