@@ -46,4 +46,9 @@ public class SeriesController {
     List<EpisodeDto> getSeriesEpisodes(@PathVariable Long id, @PathVariable int seasonId) {
         return seriesService.getSeriesEpisodeFromSeason(id, seasonId);
     }
+
+    @GetMapping("/gender/{genderName}")
+    List<SeriesDto> getSeriesByGender(@PathVariable String genderName) {
+        return seriesService.getSeriesByGender(genderName);
+    }
 }

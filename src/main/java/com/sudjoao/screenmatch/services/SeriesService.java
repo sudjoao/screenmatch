@@ -1,5 +1,6 @@
 package com.sudjoao.screenmatch.services;
 
+import com.sudjoao.screenmatch.models.domain.GenderEnum;
 import com.sudjoao.screenmatch.models.domain.Series;
 import com.sudjoao.screenmatch.models.dto.EpisodeDto;
 import com.sudjoao.screenmatch.models.dto.SeriesDto;
@@ -51,5 +52,10 @@ public class SeriesService {
                 .stream().map(EpisodeDto::fromDomain)
                 .toList()).orElse(null);
 
+    }
+
+    public List<SeriesDto> getSeriesByGender(String genderName) {
+        GenderEnum genderEnum = GenderEnum.getByName(genderName);
+        return convertSeriesToDomain(seriesRepository.findByGender(genderEnum));
     }
 }

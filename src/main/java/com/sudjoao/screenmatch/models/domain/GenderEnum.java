@@ -4,7 +4,7 @@ public enum GenderEnum {
     ACTION("action"),
     COMEDY("comedy"),
     DRAMA("drama"),
-    UNKNOWN("unkown");
+    UNKNOWN("unknown");
 
     private final String name;
 
