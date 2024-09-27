@@ -24,4 +24,9 @@ public class SeriesController {
     List<SeriesDto> getTopFiveSeries() {
         return seriesService.getTopFiveSeries();
     }
+
+    @GetMapping("/top-five-recent-episodes")
+    List<SeriesDto> getTopFiveSeriesWithRecentEpisodes() {
+        return seriesService.getTopFiveSeriesWithRecentEpisodes();
+    }
 }

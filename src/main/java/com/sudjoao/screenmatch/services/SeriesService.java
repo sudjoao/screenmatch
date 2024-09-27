@@ -27,4 +27,8 @@ public class SeriesService {
                 .map(SeriesDto::fromDomain)
                 .toList();
     }
+
+    public List<SeriesDto> getTopFiveSeriesWithRecentEpisodes() {
+        return convertSeriesToDomain(seriesRepository.findTopFiveSeriesWithRecentEpisodes());
+    }
 }
